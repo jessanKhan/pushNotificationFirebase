@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyparser from 'body-parser'
-import { admin } from './firebase-config'
+import { adminConfig } from './firebase-config.js'
 
 const app = express()
 app.use(bodyparser.json())
@@ -15,7 +15,7 @@ app.post('/firebase/notification', (req, res)=>{
     const message = req.body.message
     const options =  notification_options
     
-      admin.messaging().sendToDevice(registrationToken, message, options)
+    adminConfig.messaging().sendToDevice(registrationToken, message, options)
       .then( response => {
 
        res.status(200).send("Notification sent successfully")
